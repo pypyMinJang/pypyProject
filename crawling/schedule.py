@@ -2,18 +2,22 @@ import requests
 import sqlite3
 import re
 from bs4 import BeautifulSoup as bs
+import datetime
 
-def scheduel_crawling(url, selecPath, db_uri, file_uri):
-    page = requests.get(url)
+from . import CONSTANT as const
+
+def scheduel_crawling():
+    page = requests.get(const._URL)
     soup = bs(page.text, "html.parser")
+    getTime = datetime.datetime.now()
 
-    elements = soup.select(selecPath)
+    elements = soup.select(const._SCHEDULE_PATH)
 
-    conn = sqlite3.connect(db_uri)
+    conn = sqlite3.connect(const._DB_URI)
 
     cur= conn.cursor()
 
-    conn.execute("CREATE TABLE if not exists schedule_data(\
+    conn.execute("CREATE TABLE if not exists schedule(\
         date TEXT, homeTeam TEXT, score TEXT, awayTeam TEXT, stadium TEXT)")
 
     lst = []
@@ -35,19 +39,21 @@ def scheduel_crawling(url, selecPath, db_uri, file_uri):
                     inlst.append(element.text)
                     lst.append(tuple(inlst))
                     inlst = []
-
+    #업데이트 방식 수정 필요
+    cur.execute('DELETE FROM schedule')
     cur.executemany(
-        'INSERT INTO schedule_data VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO schedule VALUES (?, ?, ?, ?, ?)',
         lst
     )
 
-    cur.execute("SELECT * FROM schedule_data")
+    cur.execute("SELECT * FROM schedule")
 
     rows = cur.fetchall()
     # for row in rows:
     #     print(row)
 
-    f = open(file_uri, 'w', encoding="UTF-8")
+    f = open(const._SCHEDULE_FILE_URI, 'w', encoding="UTF-8")
+    f.write(str(getTime)+'\n')
     for row in rows:
         for d in row:
             f.write(d+' ')
@@ -55,3 +61,13 @@ def scheduel_crawling(url, selecPath, db_uri, file_uri):
 
     f.close()
 
+    conn.execute("CREATE TABLE if not exists updated( \
+        type TEXT, date TEXT)")
+    cur.execute('SELECT * FROM updated WHERE type = ?', ('schedule', ))
+    if cur.fetchone() :
+        cur.execute("UPDATE updated SET date = ? WHERE type = ?",(str(getTime),'schedule'))
+    else :
+        cur.execute("INSERT INTO updated VALUES (?, ?)", ('schedule', str(getTime)))
+
+    conn.commit()
+    conn.close()
