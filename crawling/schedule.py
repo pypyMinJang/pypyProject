@@ -40,11 +40,21 @@ def scheduel_crawling():
                     lst.append(tuple(inlst))
                     inlst = []
     #업데이트 방식 수정 필요
-    cur.execute('DELETE FROM schedule')
-    cur.executemany(
-        'INSERT INTO schedule VALUES (?, ?, ?, ?, ?)',
-        lst
-    )
+    # cur.execute('DELETE FROM schedule')
+    # cur.executemany(
+    #     'INSERT INTO schedule VALUES (?, ?, ?, ?, ?)',
+    #     lst
+    # )
+    #수정안
+    for d in lst:
+        cur.execute("SELECT * FROM schedule WHERE \
+            date = ? AND homeTeam = ? AND score = ? AND awayTeam = ? AND stadium = ?", \
+                (d[0], d[1], d[2], d[3], d[4]))
+        if cur.fetchone():
+            continue
+        else:
+            cur.execute('INSERT INTO schedule VALUES (?, ?, ?, ?, ?)', d)
+
 
     cur.execute("SELECT * FROM schedule")
 

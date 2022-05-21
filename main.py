@@ -5,7 +5,6 @@ import datetime
 from crawling.team import team_crawling
 from crawling.schedule import scheduel_crawling
 import user.login as login
-import user.user as user
 import CONSTANT as const
 
 conn = sqlite3.connect(const._DB_URI)
@@ -33,14 +32,58 @@ while True:
         user = login.login(id, pw)
         break
     elif signed == 'N' :
-        login.signing()
-        id = input('id : ')
-        pw = getpass.getpass('pw : ')
-        user = login.login(id, pw)
-        break
+        if login.signing():
+            print("login now!")
+            id = input('id : ')
+            pw = getpass.getpass('pw : ')
+            user = login.login(id, pw)
+            break
     else :
         print('?')
 
+print("welcome~")
 
+while True:
+    print("""
+1. seeAllSchedule\t2. seeCheckedSchedule\t3. seeAllTeam
+4. seeAllTeam_Score\t5. seeCheckedTeam\t6. seeCheckedTeam_Score
+7. addCheckedTeam\t8. resetPW\t9. deleteID
+10. exit
+     """)
+    print("What's you want {} ? ".format(user.id), end='')
+    commd = input()
 
-print("hello world!")
+    if commd == '1' or commd == "seeAllSchedule":
+        user.seeAllSchedule()
+    elif commd == '2' or commd == "seeCheckedSchedule":
+        user.seeCheckedSchedule()
+    elif commd == '3' or commd == "seeAllTeam":
+        user.seeAllTeam()
+    elif commd == '4' or commd == "seeAllTeam_Score":
+        user.seeAllTeam_Score()
+    elif commd == '5' or commd == "seeCheckedTeam":
+        user.seeCheckedTeam()
+    elif commd == '6' or commd == "seeCheckedTeam_Score":
+        user.seeCheckedTeam_Score()
+    elif commd == '7' or commd == "addCheckedTeam":
+        user.addCheckedTeam()
+    elif commd == '8' or commd == "resetPW":
+        user.resetPW()
+    elif commd == '9' or commd == "deleteID":
+        if user.deleteID():
+            print("bye..")
+            break
+    elif commd == '10' or commd == "exit":
+        user.logout()
+        print("bye~")
+        break
+    else :
+        recommd = input("do you want exit?(Y/N) ")
+        if recommd == 'Y':
+            print("bye~")
+            break
+        elif recommd == 'N':
+            print("ok")
+        else :
+            print("I can't understand what are you saying..")
+
