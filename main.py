@@ -45,12 +45,12 @@ print("welcome~")
 
 while True:
     print("""
-1. seeAllSchedule\t2. seeCheckedSchedule\t3. seeAllTeam
-4. seeAllTeam_Score\t5. seeCheckedTeam\t6. seeCheckedTeam_Score
-7. addCheckedTeam\t8. deleteCheckedTeam\t9. resetPW
-10. deleteID\t11. exit
+1. EPL 일정\t\t2 관심 팀 일정\t\t3. EPL 팀 목록
+4. EPL 순위 통계\t5. 관심 팀 목록\t\t6. 관심 팀 점수 통계
+7. 관심 팀 추가\t\t8. 관심 팀 삭제\t\t9. 비밀번호 변경
+10. 계정 삭제\t\t11. 앱 종료
      """)
-    print("What's you want {} ? ".format(user.id), end='')
+    print("What's you want '{}' ? ".format(user.id), end='')
     commd = input()
 
     if commd == '1' or commd == "seeAllSchedule":
@@ -80,12 +80,19 @@ while True:
         print("bye~")
         break
     else :
-        recommd = input("do you want exit?(Y/N) ")
-        if recommd == 'Y':
-            print("bye~")
+        recommd = input("앱을 종료하시겠습니까??(Y/N) ")
+        while(recommd!='Y' and recommd!='N'):
+            if recommd == 'Y':
+                print("bye~")
+                break
+            elif recommd == 'N':
+                print("ok")
+                break
+            else :
+                print("(Y/N)으로 답변해주십시오.")
+                
+            recommd = input("앱을 종료하시겠습니까??(Y/N) ")
+            
+        if(recommd=='Y'):
             break
-        elif recommd == 'N':
-            print("ok")
-        else :
-            print("I can't understand what are you saying..")
 
