@@ -40,7 +40,13 @@ class User:
     def seeCheckedSchedule(self):
         return
     def seeAllTeam(self):
-        return
+        print("""
+맨시티\t\t리버풀\t\t첼시\t\t토트넘\t\t아스날
+맨유\t\t웨스트햄\t레스터\t\t브라이튼\t울버햄튼
+뉴캐슬\t\t팰리스\t\t브렌트포드\t아스톤빌라\t사우스햄튼
+에버턴\t\t리즈\t\t번리\t\t왓포드\t\t노리치
+        """)
+        
     def seeAllTeam_Score(self):
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
