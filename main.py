@@ -47,8 +47,8 @@ while True:
     print("""
 1. seeAllSchedule\t2. seeCheckedSchedule\t3. seeAllTeam
 4. seeAllTeam_Score\t5. seeCheckedTeam\t6. seeCheckedTeam_Score
-7. addCheckedTeam\t8. resetPW\t9. deleteID
-10. exit
+7. addCheckedTeam\t8. deleteCheckedTeam\t9. resetPW
+10. deleteID\t11. exit
      """)
     print("What's you want {} ? ".format(user.id), end='')
     commd = input()
@@ -67,13 +67,15 @@ while True:
         user.seeCheckedTeam_Score()
     elif commd == '7' or commd == "addCheckedTeam":
         user.addCheckedTeam()
-    elif commd == '8' or commd == "resetPW":
+    elif commd=='8' or  commd=="deleteCheckedTeam":
+        user.deleteCheckedTeam()
+    elif commd == '9' or commd == "resetPW":
         user.resetPW()
-    elif commd == '9' or commd == "deleteID":
+    elif commd == '10' or commd == "deleteID":
         if user.deleteID():
             print("bye..")
             break
-    elif commd == '10' or commd == "exit":
+    elif commd == '11' or commd == "exit":
         user.logout()
         print("bye~")
         break
