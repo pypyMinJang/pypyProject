@@ -137,6 +137,17 @@ class User:
             cur = conn.cursor()
             cur.execute("UPDATE users SET pw = ? WHERE id = ?", (self.pw, self.id))
             cur.execute("UPDATE users SET checked = ? WHERE id = ?", (' '.join(self.checked), self.id))
+
+            cur.execute("SELECT * FROM users")
+            rows = cur.fetchall()
+            f = open(const._USERS_FILE_URI, 'w', encoding="UTF-8")
+            for row in rows:
+                for d in row:
+                    f.write(d+' ')
+                f.write('\n')
+
+            f.close()
+
             conn.commit()
             conn.close()
         return

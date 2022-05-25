@@ -1,3 +1,3 @@
 _DB_URI = "./data/data.sqlite"
 
-_TEAM_FILE_URI = "./data/user.txt"
+_USERS_FILE_URI = "./data/usesr.txt"

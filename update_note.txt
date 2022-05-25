@@ -1,3 +1,1 @@
-로그인 기능 보완(수정 필요)
-유저 기능 추가
-schedule crawling 업데이트 방식 수정
+users.txt 입력 추가
