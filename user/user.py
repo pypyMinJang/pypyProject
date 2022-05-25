@@ -62,7 +62,6 @@ class User:
         conn.close()
         return
     def seeCheckedTeam(self):
-        print(self.checked)
         for team in self.checked:
             print(team, end=' ')
         print('')
