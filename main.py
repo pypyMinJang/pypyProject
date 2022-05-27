@@ -11,14 +11,26 @@ conn = sqlite3.connect(const._DB_URI)
 cur = conn.cursor()
 now = datetime.datetime.now()
 
+conn.execute("CREATE TABLE if not exists updated( \
+        type TEXT, date TEXT)")
+
 cur.execute('SELECT * FROM updated WHERE type = ?', ('team', ))
-lated = datetime.datetime.strptime(cur.fetchone()[1], '%Y-%m-%d %H:%M:%S.%f')
-if (now-lated).days >= 1:
+if cur.fetchone():
+    cur.execute('SELECT * FROM updated WHERE type = ?', ('team', ))
+    lated = datetime.datetime.strptime(cur.fetchone()[1], '%Y-%m-%d %H:%M:%S.%f')
+    if (now-lated).days >= 1:
+        team_crawling()
+else:
     team_crawling()
 
+
 cur.execute('SELECT * FROM updated WHERE type = ?', ('schedule', ))
-lated = datetime.datetime.strptime(cur.fetchone()[1], '%Y-%m-%d %H:%M:%S.%f')
-if (now-lated).days >= 1:
+if cur.fetchone():
+    cur.execute('SELECT * FROM updated WHERE type = ?', ('schedule', ))
+    lated = datetime.datetime.strptime(cur.fetchone()[1], '%Y-%m-%d %H:%M:%S.%f')
+    if (now-lated).days >= 1:
+        scheduel_crawling()
+else:
     scheduel_crawling()
 
 conn.close()

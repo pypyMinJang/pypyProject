@@ -1,4 +1,4 @@
-2022-05-27 13:52:01.494477
+2022-05-27 14:59:53.732515
 04.29. (금) 03:45 맨유 1 : 1 첼시 Old Trafford 
 04.30. (토) 20:30 뉴캐슬 0 : 1 리버풀 St James' Park 
 04.30. (토) 23:00 아스톤 2 : 0 빌라 Villa Park 
@@ -22,8 +22,8 @@
 05.09. (월) 00:30 맨시티 5 : 0 뉴캐슬 Etihad Stadium 
 05.11. (수) 04:00 아스톤 1 : 2 빌라 Villa Park 
 05.12. (목) 03:30 리즈 0 : 3 첼시 Elland Road 
-05.12. (목) 03:45 왓포드 0 : 0 에버턴 Vicarage Road 
 05.12. (목) 03:45 레스터 3 : 0 노리치 King Power Stadium 
+05.12. (목) 03:45 왓포드 0 : 0 에버턴 Vicarage Road 
 05.12. (목) 04:15 울버햄튼 1 : 5 맨시티 Molineux Stadium 
 05.13. (금) 03:45 토트넘 3 : 0 아스널 Tottenham Hotspur Stadium 
 05.15. (일) 20:00 토트넘 1 : 0 번리 Tottenham Hotspur Stadium 
@@ -38,16 +38,6 @@
 05.20. (금) 03:45 에버턴 3 : 2 팰리스 Goodison Park 
 05.20. (금) 04:00 첼시 1 : 1 레스터 Stamford Bridge 
 05.20. (금) 04:00 아스톤 1 : 1 빌라 Villa Park 
-05.23. (월) 00:00 아스널 VS 에버턴 Emirates Stadium 
-05.23. (월) 00:00 레스터 VS 사우샘프턴 King Power Stadium 
-05.23. (월) 00:00 번리 VS 뉴캐슬 Turf Moor 
-05.23. (월) 00:00 리버풀 VS 울버햄튼 Anfield 
-05.23. (월) 00:00 첼시 VS 왓포드 Stamford Bridge 
-05.23. (월) 00:00 브라이튼 VS 웨스트햄 American Express Community Stadium 
-05.23. (월) 00:00 브렌트포드 VS 리즈 Brentford Community Stadium 
-05.23. (월) 00:00 팰리스 VS 맨유 Selhurst Park 
-05.23. (월) 00:00 맨시티 VS 아스톤 Etihad Stadium 
-05.23. (월) 00:00 노리치 VS 토트넘 Carrow Road 
 05.23. (월) 00:00 아스널 5 : 1 에버턴 Emirates Stadium 
 05.23. (월) 00:00 레스터 4 : 1 사우샘프턴 King Power Stadium 
 05.23. (월) 00:00 번리 1 : 2 뉴캐슬 Turf Moor 
