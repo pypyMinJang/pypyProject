@@ -11,6 +11,7 @@ class User:
     def __init__(self, id, pw):
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
+    
 
         conn.execute("CREATE TABLE if not exists users(\
         id TEXT, pw TEXT, checked TEXT)")
@@ -24,7 +25,7 @@ class User:
             if '' in self.checked:
                 self.checked.remove('')
         else :
-            print('login failed login with guest')
+            print("로그인 실패. 'guest'로 로그인 합니다.")
 
     def seeAllSchedule(self):
         conn = sqlite3.connect(const._DB_URI)
@@ -74,60 +75,60 @@ class User:
         cur = conn.cursor()
 
         while True:
-            teamName = input("where? ")
+            teamName = input("추가할 팀 : ")
             cur.execute("SELECT * FROM team WHERE teamName = ?", (teamName, ))
             if cur.fetchone():
                 self.checked.append(teamName)
-                if input("more?(Y/N) ") != 'Y':
+                if input("다른 팀도 추가하시겠습니까?(Y/N) ") != 'Y':
                     break
             else:
-                print("there is no such name team")
-                if input("exit?(Y/N) ") == 'Y':
+                print("그런 팀은 없습니다.")
+                if input("메뉴 선택 창으로 돌아가시겠습니까?(Y/N) ") == 'Y':
                     break
 
         return
     def deleteCheckedTeam(self):
         while True:
-            teamName = input("where? ")
+            teamName = input("삭제할 팀 : ")
             if teamName in self.checked:
                 self.checked.remove(teamName)
-                if input("more?(Y/N) ") != 'Y':
+                if input("다른 팀도 삭제하시겠습니까?(Y/N) ") != 'Y':
                     break
             else:
-                print("there is no such name team")
-                if input("exit?(Y/N) ") == 'Y':
+                print("그런 팀은 없습니다.")
+                if input("메뉴 선택 창으로 돌아가시겠습니까?(Y/N) ") == 'Y':
                     break
 
         return
 
     def resetPW(self):
-        pw = getpass.getpass('new pw : ')
+        pw = getpass.getpass('새 비밀번호 : ')
         while pw == '' or ' ' in pw or '\t' in pw:
-            print('without blank write something..')
-            if input('give up?(Y/N) ') == 'Y':
+            print('공백 없는 비밀번호를 부탁드립니다..')
+            if input('취소하시겠습니까?(Y/N) ') == 'Y':
                 return
             else :
-                pw = getpass.getpass('new pw : ')
+                pw = getpass.getpass('새 비밀번호 : ')
 
         self.pw = pw
         return
     def deleteID(self):
-        assertion = input("really?(Y/N) : ")
+        assertion = input("정말로 삭제하시겠습니까?(Y/N) : ")
         if assertion == 'Y':
             conn = sqlite3.connect(const._DB_URI)
             cur = conn.cursor()
-            pw_comfirm = input("pw : ")
+            pw_comfirm = input("비밀번호 : ")
             cur.execute('SELECT * FROM users WHERE id = ? AND pw = ?', (self.id, pw_comfirm))
             if cur.fetchone():
-                print("ok..")
+                print("안녕히 가십시오..")
                 cur.execute('DELETE FROM users WHERE id = ?', (self.id, ))
                 conn.commit()
                 return True
             else :
-                print("wrong pw :)")
+                print("틀린 비밀번호 :)")
             conn.close()
         else :
-            print("GOOD")        
+            print("좋은 시간 보내십시오.")        
 
         return False
 

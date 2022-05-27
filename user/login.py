@@ -14,29 +14,29 @@ def signing():
     id TEXT, pw TEXT, checked TEXT)")
 
     while True:
-        id = input('id : ')
+        id = input('아이디 : ')
         while id == '' or id == 'guest' or ' ' in id or '\t' in id:
-            print("without blank or 'guest' write something..")
-            if input('give up?(Y/N) ') == 'Y':
+            print("공백 혹은 'guest' 없이 만들어주세요..")
+            if input('취소하시겠습니까?(Y/N) ') == 'Y':
                 conn.close()
                 return False
             else :
-                id = input('id : ')
+                id = input('아이디 : ')
 
-        pw = getpass.getpass('pw : ')
+        pw = getpass.getpass('비밀번호 : ')
         while pw == '' or ' ' in pw or '\t' in pw:
-            print('without blank write something..')
-            if input('give up?(Y/N) ') == 'Y':
+            print('공백 없이 작성해주십시오..')
+            if input('취소하시겠습니까?(Y/N) ') == 'Y':
                 conn.close()
                 return False
             else :
-                pw = getpass.getpass('pw : ')
+                pw = getpass.getpass('비밀번호 : ')
 
         cur.execute('SELECT * FROM users WHERE id = ? ', (id, ))
 
         if cur.fetchone():
-            print('this id is already exist')
-            if input('give up?(Y/N) ') == 'Y':
+            print('이미 존재하는 아이디입니다.')
+            if input('취소하시겠습니까?(Y/N) ') == 'Y':
                 conn.close()
                 return False              
         else:

@@ -23,76 +23,83 @@ if (now-lated).days >= 1:
 
 conn.close()
 
+signed = input('회원 가입 하셨습니까?(Y/N)')
 while True:
-    signed = input('signed?(Y/N)')
-
     if signed == 'Y' :
-        id = input('id : ')
-        pw = getpass.getpass('pw : ')
+        id = input('아이디 : ')
+        pw = getpass.getpass('비밀번호 : ')
         user = login.login(id, pw)
         break
     elif signed == 'N' :
         if login.signing():
-            print("login now!")
-            id = input('id : ')
-            pw = getpass.getpass('pw : ')
+            print("회원 가입")
+            id = input('아이디 : ')
+            pw = getpass.getpass('비밀번호 : ')
             user = login.login(id, pw)
             break
     else :
-        print('?')
+        print('(Y/N)으로 답변해주십시오.')
+    signed = input('회원 가입 하셨습니까?(Y/N)')
 
-print("welcome~")
+print("환영합니다~!!")
+print()
+print("메뉴 선택창")
 
 while True:
     print("""
-1. EPL 일정\t\t2 관심 팀 일정\t\t3. EPL 팀 목록
+1. EPL 일정\t\t2. 관심 팀 일정\t\t3. EPL 팀 목록
 4. EPL 순위 통계\t5. 관심 팀 목록\t\t6. 관심 팀 점수 통계
 7. 관심 팀 추가\t\t8. 관심 팀 삭제\t\t9. 비밀번호 변경
 10. 계정 삭제\t\t11. 앱 종료
      """)
-    print("What's you want '{}' ? ".format(user.id), end='')
+    print("'{}'님의 메뉴 선택 : ".format(user.id), end='')
     commd = input()
 
-    if commd == '1' or commd == "seeAllSchedule":
+    if commd == '1' or commd == "EPL 일정":
         user.seeAllSchedule()
-    elif commd == '2' or commd == "seeCheckedSchedule":
+    elif commd == '2' or commd == "관심 팀 일정":
         user.seeCheckedSchedule()
-    elif commd == '3' or commd == "seeAllTeam":
+    elif commd == '3' or commd == "EPL 팀 목록":
         user.seeAllTeam()
-    elif commd == '4' or commd == "seeAllTeam_Score":
+    elif commd == '4' or commd == "EPL 순위 통계":
         user.seeAllTeam_Score()
-    elif commd == '5' or commd == "seeCheckedTeam":
+    elif commd == '5' or commd == "관심 팀 목록":
         user.seeCheckedTeam()
-    elif commd == '6' or commd == "seeCheckedTeam_Score":
+    elif commd == '6' or commd == "관심 팀 점수 통계":
         user.seeCheckedTeam_Score()
-    elif commd == '7' or commd == "addCheckedTeam":
+    elif commd == '7' or commd == "관심 팀 추가":
         user.addCheckedTeam()
-    elif commd=='8' or  commd=="deleteCheckedTeam":
+    elif commd=='8' or  commd=="관심 팀 삭제":
         user.deleteCheckedTeam()
-    elif commd == '9' or commd == "resetPW":
+    elif commd == '9' or commd == "비밀번호 변경":
         user.resetPW()
-    elif commd == '10' or commd == "deleteID":
+    elif commd == '10' or commd == "계정 삭제":
         if user.deleteID():
-            print("bye..")
+            print("Bye..")
             break
-    elif commd == '11' or commd == "exit":
+    elif commd == '11' or commd == "앱 종료":
         user.logout()
-        print("bye~")
+        print("앱이 종료되었습니다.")
+        print()
         break
     else :
         recommd = input("앱을 종료하시겠습니까??(Y/N) ")
-        while(recommd!='Y' and recommd!='N'):
+        while(True):
             if recommd == 'Y':
-                print("bye~")
+                print("앱이 종료되었습니다.")
+                print()
                 break
             elif recommd == 'N':
-                print("ok")
+                print("다시 시작하겠습니다.")
+                print()
                 break
             else :
                 print("(Y/N)으로 답변해주십시오.")
+                print()
                 
             recommd = input("앱을 종료하시겠습니까??(Y/N) ")
             
         if(recommd=='Y'):
             break
+
 
