@@ -1,11 +1,20 @@
 import sqlite3
-import getpass
 import datetime
+import os
 
+def createDirectory(directory):
+    try:
+        os.makedirs(directory, exist_ok=True)
+    except OSError:
+        print("Error: Failed to create the directory.")
+
+import getpass
 from crawling.team import team_crawling
 from crawling.schedule import scheduel_crawling
 import user.login as login
 import CONSTANT as const
+
+createDirectory(const._DB_FOLDER_URI)
 
 conn = sqlite3.connect(const._DB_URI)
 cur = conn.cursor()
