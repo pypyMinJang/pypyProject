@@ -1,4 +1,5 @@
 _URL = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=EPL"
+_DB_FOLDER_URI = "./data"
 _DB_URI = "./data/data.sqlite"
 
 _TEAM_PATH = '#teamRankTabPanel_0 > div > div.scroll > table > tbody > tr > td'
