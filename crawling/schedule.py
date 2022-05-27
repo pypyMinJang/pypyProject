@@ -48,9 +48,12 @@ def scheduel_crawling():
     #수정안
     for d in lst:
         cur.execute("SELECT * FROM schedule WHERE \
-            date = ? AND homeTeam = ? AND score = ? AND awayTeam = ? AND stadium = ?", \
-                (d[0], d[1], d[2], d[3], d[4]))
+            date = ? AND homeTeam = ? AND awayTeam = ? AND stadium = ?", \
+                (d[0], d[1], d[3], d[4]))
         if cur.fetchone():
+            cur.execute("UPDATE schedule SET score = ? \
+                WHERE date = ? AND homeTeam = ? AND awayTeam = ? AND stadium = ?", \
+                    (d[2], d[0], d[1], d[3], d[4]))
             continue
         else:
             cur.execute('INSERT INTO schedule VALUES (?, ?, ?, ?, ?)', d)
