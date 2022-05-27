@@ -1,4 +1,7 @@
-data/
+data/data.sqlite
+data/schedule.txt
+data/team.txt
+data/users.txt
 __pycache__/
 crawling/__pycache__/
 user/__pycache__/
