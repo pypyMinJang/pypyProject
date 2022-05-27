@@ -39,6 +39,17 @@ class User:
         conn.close()
         return
     def seeCheckedSchedule(self):
+        conn = sqlite3.connect(const._DB_URI)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM schedule")
+        while True:
+            row = cur.fetchone()
+            if row == None:
+                break
+            if row[1] in self.checked or row[3] in self.checked:
+                for d in row:
+                    print(d, end=" ")
+                print("")
         return
     def seeAllTeam(self):
         print("""
@@ -68,6 +79,17 @@ class User:
         print('')
         return 
     def seeCheckedTeam_Score(self):
+        conn = sqlite3.connect(const._DB_URI)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM team")
+        while True:
+            row = cur.fetchone()
+            if row == None:
+                break
+            if row[0] in self.checked:
+                for d in row:
+                    print(d, end=" ")
+                print("")
         return
 
     def addCheckedTeam(self):

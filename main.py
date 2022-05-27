@@ -23,7 +23,7 @@ if (now-lated).days >= 1:
 
 conn.close()
 
-signed = input('회원 가입 하셨습니까?(Y/N)')
+signed = input('회원 가입 하셨습니까?(Y/N) ')
 while True:
     if signed == 'Y' :
         id = input('아이디 : ')
