@@ -1,7 +1,34 @@
 import sqlite3
 import getpass
+from sys import maxsize
+import unicodedata
 
 from . import CONSTANT as const
+
+def fill_str_with_space(input_s="", max_size=40, fill_char=" "):
+    """
+    - 길이가 긴 문자는 2칸으로 체크하고, 짧으면 1칸으로 체크함. 
+    - 최대 길이(max_size)는 40이며, input_s의 실제 길이가 이보다 짧으면 
+    남은 문자를 fill_char로 채운다.
+    """
+    l = 0 
+    for c in input_s:
+        if unicodedata.east_asian_width(c) in ['F', 'W']:
+            l+=2
+        else: 
+            l+=1
+    return input_s+fill_char*(max_size-l)
+
+def menubar():
+    print(fill_str_with_space("팀명",13),end='')
+    print(fill_str_with_space("경기수",8),end='')
+    print(fill_str_with_space("승점",8),end='')
+    print(fill_str_with_space("승",8),end='')
+    print(fill_str_with_space("무",8),end='')
+    print(fill_str_with_space("패",8),end='')
+    print(fill_str_with_space("득점",8),end='')
+    print(fill_str_with_space("실점",8),end='')
+    print(fill_str_with_space("득실차",8))
 
 class User:
     id = 'guest'
@@ -63,12 +90,13 @@ class User:
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
         rows = cur.execute("SELECT * FROM team")
+        menubar()
         for row in rows:
             for i, d in enumerate(row):
                 if i == 0:
-                    print('{:<8}'.format(d), end='')
+                    print(fill_str_with_space(d,13), end='')
                 else :
-                    print(d, end=' ')
+                    print('{:<8}'.format(d), end='')
             print("")
 
         conn.close()
@@ -82,13 +110,22 @@ class User:
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
         cur.execute("SELECT * FROM team")
+        row = cur.fetchone()
+        if row==None:
+            print("관심 팀이 없습니다.")
+            return
+        menubar()
+        cur.execute("SELECT * FROM team")
         while True:
             row = cur.fetchone()
             if row == None:
                 break
             if row[0] in self.checked:
-                for d in row:
-                    print(d, end=" ")
+                for i, d in enumerate(row):
+                    if i == 0:
+                        print(fill_str_with_space(d,13), end='')
+                    else :
+                        print('{:<8}'.format(d), end='')
                 print("")
         return
 
