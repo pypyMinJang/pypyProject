@@ -1,7 +1,7 @@
 import sqlite3
-import getpass
-from sys import maxsize
 import unicodedata
+
+import getpass
 
 from . import CONSTANT as const
 
@@ -18,7 +18,6 @@ def fill_str_with_space(input_s="", max_size=40, fill_char=" "):
         else: 
             l+=1
     return input_s+fill_char*(max_size-l)
-
 def menubar():
     print(fill_str_with_space("팀명",13),end='')
     print(fill_str_with_space("경기수",8),end='')
@@ -54,6 +53,8 @@ class User:
         else :
             print("로그인 실패. 'guest'로 로그인 합니다.")
 
+        conn.close()
+
     def seeAllSchedule(self):
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
@@ -77,14 +78,23 @@ class User:
                 for d in row:
                     print(d, end=" ")
                 print("")
+
+        conn.close()
         return
     def seeAllTeam(self):
-        print("""
-맨시티\t\t리버풀\t\t첼시\t\t토트넘\t\t아스날
-맨유\t\t웨스트햄\t레스터\t\t브라이튼\t울버햄튼
-뉴캐슬\t\t팰리스\t\t브렌트포드\t아스톤빌라\t사우스햄튼
-에버턴\t\t리즈\t\t번리\t\t왓포드\t\t노리치
-        """)
+        conn = sqlite3.connect(const._DB_URI)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM team")
+        rows = cur.fetchall()
+        for i, row in enumerate(rows, start=1):
+            print(fill_str_with_space(row[0], 13), end='')
+            if i % 5 == 0:
+                print()
+
+        conn.close()
+
+        return
+
         
     def seeAllTeam_Score(self):
         conn = sqlite3.connect(const._DB_URI)
@@ -127,6 +137,8 @@ class User:
                     else :
                         print('{:<8}'.format(d), end='')
                 print("")
+
+        conn.close()
         return
 
     def addCheckedTeam(self):
@@ -144,7 +156,8 @@ class User:
                 print("그런 팀은 없습니다.")
                 if input("메뉴 선택 창으로 돌아가시겠습니까?(Y/N) ") == 'Y':
                     break
-
+        
+        conn.close()
         return
     def deleteCheckedTeam(self):
         while True:
@@ -161,15 +174,18 @@ class User:
         return
 
     def resetPW(self):
-        pw = getpass.getpass('새 비밀번호 : ')
-        while pw == '' or ' ' in pw or '\t' in pw:
-            print('공백 없는 비밀번호를 부탁드립니다..')
-            if input('취소하시겠습니까?(Y/N) ') == 'Y':
-                return
-            else :
-                pw = getpass.getpass('새 비밀번호 : ')
+        if self.pw == getpass.getpass('현재 비밀번호 : '):
+            pw = getpass.getpass('새 비밀번호 : ')
+            while pw == '' or ' ' in pw or '\t' in pw:
+                print('공백 없는 비밀번호를 부탁드립니다..')
+                if input('취소하시겠습니까?(Y/N) ') == 'Y':
+                    return
+                else :
+                    pw = getpass.getpass('새 비밀번호 : ')
 
-        self.pw = pw
+            self.pw = pw
+        else:
+            print('비밀번호가 틀립니다')
         return
     def deleteID(self):
         assertion = input("정말로 삭제하시겠습니까?(Y/N) : ")
@@ -182,6 +198,7 @@ class User:
                 print("안녕히 가십시오..")
                 cur.execute('DELETE FROM users WHERE id = ?', (self.id, ))
                 conn.commit()
+                conn.close()
                 return True
             else :
                 print("틀린 비밀번호 :)")

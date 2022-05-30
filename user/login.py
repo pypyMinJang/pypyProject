@@ -1,4 +1,5 @@
 import sqlite3
+
 import getpass
 
 from . import user
@@ -14,18 +15,18 @@ def signing():
     id TEXT, pw TEXT, checked TEXT)")
 
     while True:
-        id = input('아이디 : ')
+        id = input('사용할 아이디 : ')
         while id == '' or id == 'guest' or ' ' in id or '\t' in id:
-            print("공백 혹은 'guest' 없이 만들어주세요..")
+            print("'guest'이외의 아이디로 공백 없이 작성해주세요..")
             if input('취소하시겠습니까?(Y/N) ') == 'Y':
                 conn.close()
                 return False
             else :
-                id = input('아이디 : ')
+                id = input('사용할 아이디 : ')
 
-        pw = getpass.getpass('비밀번호 : ')
+        pw = getpass.getpass('사용할 비밀번호 : ')
         while pw == '' or ' ' in pw or '\t' in pw:
-            print('공백 없이 작성해주십시오..')
+            print('공백 없이 작성해주세요..')
             if input('취소하시겠습니까?(Y/N) ') == 'Y':
                 conn.close()
                 return False
@@ -42,4 +43,5 @@ def signing():
         else:
             cur.execute('INSERT INTO users VALUES (?, ?, ?)', (id, pw, ''))
             conn.commit()
+            conn.close()
             return True

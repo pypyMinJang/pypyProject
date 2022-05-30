@@ -1,8 +1,9 @@
-import requests
 import sqlite3
 import re
-from bs4 import BeautifulSoup as bs
 import datetime
+
+import requests
+from bs4 import BeautifulSoup as bs
 
 from . import CONSTANT as const
 
@@ -22,9 +23,10 @@ def scheduel_crawling():
 
     lst = []
     inlst = []
-    for i, element in enumerate(elements, start=1):
+    for element in elements:
         if element.text:
             if '(' in element.text:
+            # if re.match("..\...\.\ \(.\)", element.text):
                 day = element.text.strip()
             else:
                 if re.match("..:..", element.text):
@@ -32,41 +34,29 @@ def scheduel_crawling():
                 elif re.findall('[ㄱ-힣]+', element.text):
                     m = re.findall('[ㄱ-힣]+', element.text)
                     st = re.sub('[ㄱ-힣]+', "", element.text).strip()
-                    inlst.append(m[0])
-                    inlst.append(st)
-                    inlst.append(m[1])
+                    inlst.extend([m[0], st, m[1]])
                 else:
                     inlst.append(element.text)
                     lst.append(tuple(inlst))
                     inlst = []
-    #업데이트 방식 수정 필요
-    # cur.execute('DELETE FROM schedule')
-    # cur.executemany(
-    #     'INSERT INTO schedule VALUES (?, ?, ?, ?, ?)',
-    #     lst
-    # )
-    #수정안
+                    
     for d in lst:
         cur.execute("SELECT * FROM schedule WHERE \
             date = ? AND homeTeam = ? AND awayTeam = ? AND stadium = ?", \
                 (d[0], d[1], d[3], d[4]))
+
         if cur.fetchone():
             cur.execute("UPDATE schedule SET score = ? \
                 WHERE date = ? AND homeTeam = ? AND awayTeam = ? AND stadium = ?", \
                     (d[2], d[0], d[1], d[3], d[4]))
-            continue
         else:
             cur.execute('INSERT INTO schedule VALUES (?, ?, ?, ?, ?)', d)
 
 
-    cur.execute("SELECT * FROM schedule")
-
-    rows = cur.fetchall()
-    # for row in rows:
-    #     print(row)
-
     f = open(const._SCHEDULE_FILE_URI, 'w', encoding="UTF-8")
     f.write(str(getTime)+'\n')
+    cur.execute("SELECT * FROM schedule")
+    rows = cur.fetchall()
     for row in rows:
         for d in row:
             f.write(d+' ')
