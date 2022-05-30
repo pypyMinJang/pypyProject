@@ -123,7 +123,7 @@ while True:
         break
 
     else :
-        recommd = input("앱을 종료하시겠습니까?(Y/N) ")
+        recommd = input("프로그램을 종료하시겠습니까?(Y/N) ")
         while True :
             if recommd == 'Y':
                 break
@@ -132,7 +132,7 @@ while True:
                 break
             else :
                 print("(Y/N)으로 답변해주십시오.\n")  
-                recommd = input("앱을 종료하시겠습니까?(Y/N) ")
+                recommd = input("프로그램을 종료하시겠습니까?(Y/N) ")
 
         if recommd == 'Y':
             break
