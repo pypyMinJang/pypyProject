@@ -1,18 +1,10 @@
 import sqlite3
 import datetime
 import time
+import getpass
 
-from crawling.team import team_crawling
-from crawling.schedule import scheduel_crawling
-import user.login as login
-import CONSTANT as const
 import preprocess as pre
 
-try:
-    import getpass
-except:
-    pre.install('getpass')
-    import getpass
 try:
     import requests
 except:
@@ -23,6 +15,12 @@ try:
 except:
     pre.install('bs4')
     import bs4
+
+from crawling.team import team_crawling
+from crawling.schedule import scheduel_crawling
+import user.login as login
+import CONSTANT as const
+
 
 pre.createDirectory(const._DB_FOLDER_URI)
 

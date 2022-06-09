@@ -289,5 +289,3 @@ class User:
             conn.close()
         return
     
-        
-
