@@ -29,11 +29,10 @@ def team_crawling():
             inlst = []
 
 
-    cur.execute('DELETE FROM team')
-    cur.executemany(
-        'INSERT INTO team VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        lst
-    )
+    for inlst in lst:
+        cur.execute("UPDATE team SET match = ? AND winScore = ? AND win = ? AND draw = ? AND lose = ?\
+         AND gain = ? AND loss	= ? AND gain_loss_dif = ? WHERE teamName = ?", \
+             (inlst[1], inlst[2], inlst[3], inlst[4], inlst[5], inlst[6], inlst[7], inlst[8], inlst[0]))
 
 
     f = open(const._TEAM_FILE_URI, 'w', encoding="UTF-8")
