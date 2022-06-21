@@ -1,0 +1,6 @@
+기능 함수화
+crawling 방식 update로 변경
+SELECT * -> SELECT (column)
+계정 변경 메뉴 추가
+
+exe파일 추가
