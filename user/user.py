@@ -24,22 +24,6 @@ def fill_str_with_space(input_s="", max_size=40, fill_char=" ", side='left'):
         return fill_char*((max_size-l)//2)+input_s+fill_char*((max_size-l)//2)
     else:
         return input_s+fill_char*(max_size-l)
-def printScoreMenu():
-    print(fill_str_with_space("팀명",13),end='')
-    print(fill_str_with_space("경기수",8),end='')
-    print(fill_str_with_space("승점",8),end='')
-    print(fill_str_with_space("승",8),end='')
-    print(fill_str_with_space("무",8),end='')
-    print(fill_str_with_space("패",8),end='')
-    print(fill_str_with_space("득점",8),end='')
-    print(fill_str_with_space("실점",8),end='')
-    print(fill_str_with_space("득실차",8))
-def printScheduleMenu():
-    print(fill_str_with_space("일시",17),end='')
-    print(fill_str_with_space("홈팀",14, ' ', 'right'),end='')
-    print(fill_str_with_space("결과 ",7, ' ', 'center'),end='')
-    print(fill_str_with_space("어웨이팀",14),end='')
-    print(fill_str_with_space("스타디움",30))
 
 class User:
     id = 'guest'
@@ -58,8 +42,8 @@ class User:
         if cur.fetchone() :
             self.id = id
             self.pw = pw
-            cur.execute('SELECT * FROM users WHERE id = ? AND pw = ?', (id, pw))
-            self.checked = str(cur.fetchone()[2]).split(' ')
+            cur.execute('SELECT checked FROM users WHERE id = ? AND pw = ?', (id, pw))
+            self.checked = str(cur.fetchone()[0]).split(' ')
             if '' in self.checked:
                 self.checked.remove('')
         else :
@@ -68,21 +52,31 @@ class User:
         conn.close()
         return
 
+    def __printScheduleMenu(self):
+        print(fill_str_with_space("일시",17),end='')
+        print(fill_str_with_space("홈팀",14, ' ', 'right'),end='')
+        print(fill_str_with_space("결과 ",7, ' ', 'center'),end='')
+        print(fill_str_with_space("어웨이팀",14),end='')
+        print(fill_str_with_space("스타디움",30))
+        return
+    def __printScheduleLine(self, row):
+        for i, d in enumerate(row):
+            if i == 1:
+                print(fill_str_with_space(d, 13, ' ', 'right'), end=' ')
+            elif i == 3:
+                print(fill_str_with_space(d, 13), end=' ')
+            else:
+                print(d, end=' ')
+
+        print("")
+        return
     def seeAllSchedule(self):
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
         rows = cur.execute("SELECT * FROM schedule")
-        printScheduleMenu()
+        self.__printScheduleMenu()
         for row in rows:
-            for i, d in enumerate(row):
-                if i == 1:
-                    print(fill_str_with_space(d, 13, ' ', 'right'), end=' ')
-                elif i == 3:
-                    print(fill_str_with_space(d, 13), end=' ')
-                else:
-                    print(d, end=' ')
-
-            print("")
+            self.__printScheduleLine(row)
 
         conn.close()
         return
@@ -92,20 +86,13 @@ class User:
                 conn = sqlite3.connect(const._DB_URI)
                 cur = conn.cursor()
                 cur.execute("SELECT * FROM schedule")
-                printScheduleMenu()
+                self.__printScheduleMenu()
                 while True:
                     row = cur.fetchone()
                     if row == None:
                         break
                     if row[1] in self.checked or row[3] in self.checked:
-                        for i, d in enumerate(row):
-                            if i == 1:
-                                print(fill_str_with_space(d, 13, ' ', 'right'), end=' ')
-                            elif i == 3:
-                                print(fill_str_with_space(d, 13), end=' ')
-                            else:
-                                print(d, end=' ')
-                        print("")
+                        self.__printScheduleLine(row)
                 
                 conn.close()
             else:
@@ -113,64 +100,78 @@ class User:
         else:
             print("guest로는 이용할수 없습니다")
         return
+    
+    def __printTeams(self, teamList):
+        lenList = list(map(lambda x : 2*len(x), teamList))
+        for i, team in enumerate(teamList, start=1):
+            print(fill_str_with_space(team, max(lenList)+4, " ", "center"), end='')
+            if i % 5 == 0:
+                print()
+        if len(teamList)%5 != 0:
+            print()
+        return
     def seeAllTeam(self):
         conn = sqlite3.connect(const._DB_URI)
         cur = conn.cursor()
-        cur.execute("SELECT * FROM team")
+        cur.execute("SELECT teamName FROM team")
         rows = cur.fetchall()
-        for i, row in enumerate(rows, start=1):
-            print(fill_str_with_space(row[0], 13), end='')
-            if i % 5 == 0:
-                print()
-
-        conn.close()
-
-        return
-       
-    def seeAllTeam_Score(self):
-        conn = sqlite3.connect(const._DB_URI)
-        cur = conn.cursor()
-        rows = cur.execute("SELECT * FROM team")
-        printScoreMenu()
-        for row in rows:
-            for i, d in enumerate(row):
-                if i == 0:
-                    print(fill_str_with_space(d,13), end='')
-                else :
-                    print('{:<8}'.format(d), end='')
-            print("")
+        teamList = list(map(lambda x : x[0], rows))
+        self.__printTeams(teamList)
 
         conn.close()
         return
     def seeCheckedTeam(self):
         if self.id != 'guest':
             if self.checked:
-                for team in self.checked:
-                    print(team, end=' ')
-                print('')
+                self.__printTeams(self.checked)
             else:
                 print('관심 팀을 먼저 등록해 주세요')
         else:
             print("guest로는 이용할수 없습니다")
-        return 
+        return    
+
+    def __printScoreMenu(self):
+        print(fill_str_with_space("팀명",13),end='')
+        print(fill_str_with_space("경기수",8),end='')
+        print(fill_str_with_space("승점",8),end='')
+        print(fill_str_with_space("승",8),end='')
+        print(fill_str_with_space("무",8),end='')
+        print(fill_str_with_space("패",8),end='')
+        print(fill_str_with_space("득점",8),end='')
+        print(fill_str_with_space("실점",8),end='')
+        print(fill_str_with_space("득실차",8))
+        return
+    def __printScoreLine(self, row):
+        for i, d in enumerate(row):
+            if i == 0:
+                print(fill_str_with_space(d,13), end='')
+            else :
+                print('{:<8}'.format(d), end='')
+        print("")
+        return
+    def seeAllTeam_Score(self):
+        conn = sqlite3.connect(const._DB_URI)
+        cur = conn.cursor()
+        rows = cur.execute("SELECT * FROM team")
+        self.__printScoreMenu()
+        for row in rows:
+            self.__printScoreLine(row)
+
+        conn.close()
+        return
     def seeCheckedTeam_Score(self):
         if self.id != 'guest':
             if self.checked:
                 conn = sqlite3.connect(const._DB_URI)
                 cur = conn.cursor()
-                printScoreMenu()
+                self.__printScoreMenu()
                 cur.execute("SELECT * FROM team")
                 while True:
                     row = cur.fetchone()
                     if row == None:
                         break
                     if row[0] in self.checked:
-                        for i, d in enumerate(row):
-                            if i == 0:
-                                print(fill_str_with_space(d,13), end='')
-                            else :
-                                print('{:<8}'.format(d), end='')
-                        print("")
+                        self.__printScoreLine(row)
 
                 conn.close()
             else:
@@ -186,7 +187,7 @@ class User:
 
             while True:
                 teamName = input("추가할 팀 : ")
-                cur.execute("SELECT * FROM team WHERE teamName = ?", (teamName, ))
+                cur.execute("SELECT teamName FROM team WHERE teamName = ?", (teamName, ))
                 if cur.fetchone():
                     self.checked.append(teamName)
                     if input("다른 팀도 추가하시겠습니까?(Y/N) ") != 'Y':

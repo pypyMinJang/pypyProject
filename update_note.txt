@@ -1,2 +1,6 @@
-users.txt 입력 추가
-사용자1 : python 0000 "맨시티 토트넘 리즈"
+기능 함수화
+crawling 방식 update로 변경
+SELECT * -> SELECT (column)
+계정 변경 메뉴 추가
+
+exe파일 추가

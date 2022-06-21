@@ -30,9 +30,13 @@ def team_crawling():
 
 
     for inlst in lst:
-        cur.execute("UPDATE team SET match = ? AND winScore = ? AND win = ? AND draw = ? AND lose = ?\
-         AND gain = ? AND loss	= ? AND gain_loss_dif = ? WHERE teamName = ?", \
-             (inlst[1], inlst[2], inlst[3], inlst[4], inlst[5], inlst[6], inlst[7], inlst[8], inlst[0]))
+        cur.execute("SELECT teamName FROM team WHERE teamName = ?", (inlst[0], ))
+        if cur.fetchone():
+            cur.execute("UPDATE team SET match = ? AND winScore = ? AND win = ? AND draw = ? AND lose = ?\
+            AND gain = ? AND loss	= ? AND gain_loss_dif = ? WHERE teamName = ?", \
+                 (inlst[1], inlst[2], inlst[3], inlst[4], inlst[5], inlst[6], inlst[7], inlst[8], inlst[0]))
+        else:
+            cur.execute("INSERT INTO team VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)", inlst)
 
 
     f = open(const._TEAM_FILE_URI, 'w', encoding="UTF-8")
@@ -49,7 +53,7 @@ def team_crawling():
 
     conn.execute("CREATE TABLE if not exists updated( \
         type TEXT, date TEXT)")
-    cur.execute('SELECT * FROM updated WHERE type = ?', ('team', ))
+    cur.execute('SELECT type FROM updated WHERE type = ?', ('team', ))
     if cur.fetchone() :
         cur.execute("UPDATE updated SET date = ? WHERE type = ?",(str(getTime),'team'))
     else :
