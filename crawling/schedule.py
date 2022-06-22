@@ -37,6 +37,7 @@ def scheduel_crawling():
                     inlst.extend([m[0], st, m[1]])
                 else:
                     inlst.append(element.text)
+                    inlst = list(map(lambda x : x.strip(), inlst))
                     lst.append(tuple(inlst))
                     inlst = []
                     

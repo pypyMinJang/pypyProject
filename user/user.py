@@ -21,7 +21,7 @@ def fill_str_with_space(input_s="", max_size=40, fill_char=" ", side='left'):
     if side == 'right':
         return fill_char*(max_size-l)+input_s
     elif side == 'center':
-        return fill_char*((max_size-l)//2)+input_s+fill_char*((max_size-l)//2)
+        return fill_char*((max_size-l)//2)+input_s+fill_char*((max_size-l)-(max_size-l)//2)
     else:
         return input_s+fill_char*(max_size-l)
 
@@ -63,6 +63,8 @@ class User:
         for i, d in enumerate(row):
             if i == 1:
                 print(fill_str_with_space(d, 13, ' ', 'right'), end=' ')
+            elif i == 2:
+                print(fill_str_with_space(d, 5, ' ', 'center'), end=' ')
             elif i == 3:
                 print(fill_str_with_space(d, 13), end=' ')
             else:

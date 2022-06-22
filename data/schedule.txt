@@ -1,4 +1,4 @@
-2022-06-21 11:43:29.673865
+2022-06-22 15:14:24.194233
 04.29. (금) 03:45 맨유 1 : 1 첼시 Old Trafford 
 04.30. (토) 20:30 뉴캐슬 0 : 1 리버풀 St James' Park 
 04.30. (토) 23:00 아스톤 2 : 0 빌라 Villa Park 
@@ -48,3 +48,50 @@
 05.23. (월) 00:00 팰리스 1 : 0 맨유 Selhurst Park 
 05.23. (월) 00:00 맨시티 3 : 2 아스톤 Etihad Stadium 
 05.23. (월) 00:00 노리치 0 : 5 토트넘 Carrow Road 
+08.06. (토) 04:00 팰리스 VS 아스널 Selhurst Park 
+08.06. (토) 20:30 풀럼 VS 리버풀 Craven Cottage 
+08.06. (토) 23:00 본머스 VS 아스톤 Vitality Stadium 
+08.06. (토) 23:00 토트넘 VS 사우샘프턴 Tottenham Hotspur Stadium 
+08.06. (토) 23:00 리즈 VS 울버햄튼 Elland Road 
+08.06. (토) 23:00 레스터 VS 브렌트포드 King Power Stadium 
+08.06. (토) 23:00 뉴캐슬 VS 노팅엄 St James' Park 
+08.07. (일) 01:30 에버턴 VS 첼시 Goodison Park 
+08.07. (일) 22:00 맨유 VS 브라이튼 Old Trafford 
+08.08. (월) 00:30 웨스트햄 VS 맨시티 London Stadium 
+08.13. (토) 23:00 아스널 VS 레스터 Emirates Stadium 
+08.13. (토) 23:00 브렌트포드 VS 맨유 Brentford Community Stadium 
+08.13. (토) 23:00 브라이튼 VS 뉴캐슬 American Express Community Stadium 
+08.13. (토) 23:00 첼시 VS 토트넘 Stamford Bridge 
+08.13. (토) 23:00 리버풀 VS 팰리스 Anfield 
+08.13. (토) 23:00 아스톤 VS 빌라 Villa Park 
+08.13. (토) 23:00 맨시티 VS 본머스 Etihad Stadium 
+08.13. (토) 23:00 노팅엄 VS 포레스트 City Ground 
+08.13. (토) 23:00 사우샘프턴 VS 리즈 St. Mary's Stadium 
+08.13. (토) 23:00 울버햄튼 VS 풀럼 Molineux Stadium 
+08.20. (토) 23:00 토트넘 VS 울버햄튼 Tottenham Hotspur Stadium 
+08.20. (토) 23:00 본머스 VS 아스널 Vitality Stadium 
+08.20. (토) 23:00 레스터 VS 사우샘프턴 King Power Stadium 
+08.20. (토) 23:00 리즈 VS 첼시 Elland Road 
+08.20. (토) 23:00 풀럼 VS 브렌트포드 Craven Cottage 
+08.20. (토) 23:00 팰리스 VS 아스톤 Selhurst Park 
+08.20. (토) 23:00 에버턴 VS 노팅엄 Goodison Park 
+08.20. (토) 23:00 뉴캐슬 VS 맨시티 St James' Park 
+08.20. (토) 23:00 맨유 VS 리버풀 Old Trafford 
+08.20. (토) 23:00 웨스트햄 VS 브라이튼 London Stadium 
+08.27. (토) 23:00 첼시 VS 레스터 Stamford Bridge 
+08.27. (토) 23:00 맨시티 VS 팰리스 Etihad Stadium 
+08.27. (토) 23:00 리버풀 VS 본머스 Anfield 
+08.27. (토) 23:00 브라이튼 VS 리즈 American Express Community Stadium 
+08.27. (토) 23:00 울버햄튼 VS 뉴캐슬 Molineux Stadium 
+08.27. (토) 23:00 노팅엄 VS 포레스트 City Ground 
+08.27. (토) 23:00 사우샘프턴 VS 맨유 St. Mary's Stadium 
+08.27. (토) 23:00 아스널 VS 풀럼 Emirates Stadium 
+08.27. (토) 23:00 아스톤 VS 빌라 Villa Park 
+08.27. (토) 23:00 브렌트포드 VS 에버턴 Brentford Community Stadium 
+08.31. (수) 03:45 아스널 VS 아스톤 Emirates Stadium 
+08.31. (수) 03:45 풀럼 VS 브라이튼 Craven Cottage 
+08.31. (수) 03:45 본머스 VS 울버햄튼 Vitality Stadium 
+08.31. (수) 03:45 리즈 VS 에버턴 Elland Road 
+08.31. (수) 03:45 레스터 VS 맨유 King Power Stadium 
+08.31. (수) 03:45 웨스트햄 VS 토트넘 London Stadium 
+08.31. (수) 04:00 팰리스 VS 브렌트포드 Selhurst Park 
